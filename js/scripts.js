@@ -30,7 +30,7 @@ function getRegToken() {
     messaging.getToken().then(function (currentToken) {
         if (currentToken) {
             saveToken(currentToken);
-            console.log(currentToken); 
+            console.log(currentToken);
             setTokenSentToServer(true);
         } else {
             console.log('No Instance ID token available. Request permission to generate one.');
@@ -62,7 +62,7 @@ function saveToken(currentToken) {
         contentType: false,
         dataType: 'json',
     }).done(function (result) {
-        console.log(result);        
+        console.log(result);
     });
 
     /*if (!isTokenSentToServer()) {
@@ -83,7 +83,25 @@ messaging.onMessage(function (payload) {
         body: payload.data.body,
         icon: payload.data.icon,
         //image: payload.data.image
+        click_action: payload.data.click_action,
+        /*actions:[
+               {
+            title: "Like",
+            action: "like",
+            icon: "icons/heart.png"
+     
+        }]*/
     };
+    //console.log(notificationOptions);
     var notification = new Notification(notificationTitle, notificationOptions);
+
+
+/*
+    notification.onclick = function (event) {
+        console.log(event);
+        event.preventDefault(); // prevent the browser from focusing the Notification's tab
+        window.open('http://www.mozilla.org', '_blank');
+    };*/
+
 
 });

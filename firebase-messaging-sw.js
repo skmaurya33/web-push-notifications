@@ -51,10 +51,18 @@ messaging.setBackgroundMessageHandler(function (payload) {
     var notificationOptions = {
         body: payload.data.body,
         icon: payload.data.icon,
-        //image: payload.data.image
+        //image: payload.data.image,
+        click_action: payload.data.click_action
     };
 
-    return self.registration.showNotification(notificationTitle,
+    var notification = self.registration.showNotification(notificationTitle,
             notificationOptions);
+
+    notification.onclick = function (event) {
+        console.log(event);
+        event.preventDefault(); // prevent the browser from focusing the Notification's tab
+        window.open('http://www.mozilla.org', '_blank');
+    };
+    return notification;
 });
 // [END background_handler]
